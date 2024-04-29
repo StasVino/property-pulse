@@ -1,21 +1,24 @@
-import React from "react";
-import "@/assets/styles/globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import React from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import AuthProvider from '@/components/AuthProvider';
+import '@/assets/styles/globals.css';
 
 export const metadata = {
-  title: "PropertyPulse | Find the perfect rental",
+  title: 'PropertyPulse | Find the perfect rental',
 };
 
 const MainLayout = ({ children }) => {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <main>{children}</main>;
-        <Footer />
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body>
+          <Navbar />
+          <main>{children}</main>;
+          <Footer />
+        </body>
+      </html>
+    </AuthProvider>
   );
 };
 
