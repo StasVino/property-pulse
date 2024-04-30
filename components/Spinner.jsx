@@ -4,7 +4,7 @@ const override = {
   margin: '100pc auto',
 };
 
-const LoadingPage = ({ loading }) => {
+const Spinner = ({ loading }) => {
   return (
     <ClipLoader
       color="#3b82f6"
@@ -16,4 +16,4 @@ const LoadingPage = ({ loading }) => {
   );
 };
 
-export default LoadingPage;
+export default Spinner;
