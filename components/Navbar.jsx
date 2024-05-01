@@ -16,6 +16,7 @@ const Navbar = () => {
   const [providers, setProviders] = useState(false);
 
   const pathname = usePathname();
+
   useEffect(() => {
     const setAuthProviders = async () => {
       const res = await getProviders();
@@ -23,6 +24,8 @@ const Navbar = () => {
     };
     setAuthProviders();
   }, []);
+  console.log(providers);
+
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -188,6 +191,9 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                      }}
                     >
                       Your Profile
                     </Link>
@@ -201,6 +207,10 @@ const Navbar = () => {
                       Saved Properties
                     </Link>
                     <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        signOut();
+                      }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
