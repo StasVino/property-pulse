@@ -19,7 +19,6 @@ export const authOptions = {
   callbacks: {
     // Invoked on successful signin
     async signIn({ profile }) {
-      console.log(profile);
       // 1. connect to database
       await connectDB();
       // 2. check if user exist
@@ -30,7 +29,7 @@ export const authOptions = {
         const username = profile.name.slice(0, 20);
         await User.create({
           email: profile.email,
-          name: username,
+          username,
           image: profile.picture,
         });
       }
