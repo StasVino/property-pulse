@@ -51,9 +51,59 @@ const PropertyAddForm = () => {
     setMounted(true);
   }, []);
 
-  const handleChange = () => {};
-  const handleAmenitiesChange = () => {};
-  const handleImageChange = () => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name.includes('.')) {
+      const [outerKey, innerKey] = name.split('.');
+
+      setFields((prevFields) => ({
+        ...prevFields,
+        [outerKey]: { ...prevFields[outerKey], [innerKey]: value },
+      }));
+    } else {
+      setFields((prevFields) => ({
+        ...prevFields,
+        [name]: value,
+      }));
+    }
+  };
+  const handleAmenitiesChange = (e) => {
+    const { value, checked } = e.target;
+
+    // Clone the current array
+    const updatedAmenities = [...fields.amenities];
+
+    if (checked) {
+      // Add value to the array
+      updatedAmenities.push(value);
+    } else {
+      // Remove value
+      const index = updatedAmenities.indexOf(value);
+      if (index !== -1) {
+        updatedAmenities.splice(index, 1);
+      }
+    }
+    // Update state
+    setFields((prevFields) => ({
+      ...prevFields,
+      amenities: updatedAmenities,
+    }));
+  };
+  const handleImageChange = (e) => {
+    const { files } = e.target;
+    // Clone images array
+    const updatedImages = [...fields.images];
+
+    console.log(updatedImages);
+    for (const file in files) {
+      updatedImages.push(file);
+    }
+    setFields((prevFields) => ({
+      ...prevFields,
+      images: updatedImages,
+    }));
+  };
 
   return (
     mounted && (
@@ -63,7 +113,7 @@ const PropertyAddForm = () => {
         </h2>
 
         <div className="mb-4">
-          <label for="type" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
             Property Type
           </label>
           <select

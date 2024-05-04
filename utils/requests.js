@@ -9,7 +9,7 @@ async function fetchProperties() {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`);
     if (!res.ok) {
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   } catch (error) {
@@ -30,7 +30,7 @@ async function fetchProperty(id) {
       `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties/${id}`
     );
     if (!res.ok) {
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   } catch (error) {
