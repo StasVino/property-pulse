@@ -107,7 +107,6 @@ const PropertyAddForm = () => {
       ...prevFields,
       images: updatedImages,
     }));
-    console.log(fields);
   };
 
   return (

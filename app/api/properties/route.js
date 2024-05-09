@@ -21,30 +21,34 @@ export const POST = async (request) => {
   try {
     await connectDB();
 
-    const sessionUser = getSessionUser();
+    const sessionUser = await getSessionUser();
 
     if (!sessionUser || !sessionUser.userId) {
       return new Response('User Id is requred', { state: 401 });
     }
 
+    const { userId } = sessionUser;
+
     const formData = await request.formData();
     // Acces all values from amenities and images
+
     const amenities = formData.getAll('amenities');
     const images = formData.getAll('images');
     // Create the forData for database submision
+    console.log(formData);
     const propertyData = {
-      type: formData.getAll('type'),
-      name: formData.getAll('name'),
-      description: formData.getAll('description'),
+      type: formData.get('type'),
+      name: formData.get('name'),
+      description: formData.get('description'),
       location: {
-        street: formData.getAll('location.street'),
-        city: formData.getAll('location.city'),
-        state: formData.getAll('location.state'),
-        zipcode: formData.getAll('location.zipcode'),
+        street: formData.get('location.street'),
+        city: formData.get('location.city'),
+        state: formData.get('location.state'),
+        zipcode: formData.get('location.zipcode'),
       },
-      beds: formData.getAll('beds'),
-      baths: formData.getAll('baths'),
-      square_feet: formData.getAll('square_feet'),
+      beds: formData.get('beds'),
+      baths: formData.get('baths'),
+      square_feet: formData.get('square_feet'),
       amenities,
       rates: {
         weekly: formData.get('rates.weekly'),
@@ -57,11 +61,18 @@ export const POST = async (request) => {
         phone: formData.get('seller_info.phone'),
       },
       owner: userId,
-      images,
+      // images,
     };
 
-    console.log(propertyData);
+    const newProperty = new Property(propertyData);
+    await newProperty.save();
 
-    return new Response(JSON.stringify({ message: 'Success' }));
-  } catch (error) {}
+    return Response.redirect(
+      `${process.env.NEXTAUTH_URL}/properties/${newProperty._id}`
+    );
+
+    //return new Response(JSON.stringify({ message: 'Success' }));
+  } catch (error) {
+    return new Response('Failed to add property', { status: 500 });
+  }
 };
