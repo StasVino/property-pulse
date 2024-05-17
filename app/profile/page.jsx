@@ -28,7 +28,6 @@ const page = () => {
 
         if (res.status === 200) {
           const data = await res.json();
-          console.log(data);
           setProperties(data);
         }
       } catch (error) {
@@ -43,7 +42,35 @@ const page = () => {
     }
   }, [session]);
 
-  const handleDeleteProperty = () => {};
+  const handleDeleteProperty = async (propertyId) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this property'
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`/api/properties/${propertyId}`, {
+        method: 'DELETE',
+      });
+      console.log(res);
+      if (res.status === 200) {
+        // Remove the property from state
+        const updatedProperies = properties.filter(
+          (property) => property._id !== propertyId
+        );
+
+        setProperties(updatedProperies);
+
+        alert('Property Deleted');
+      } else {
+        alert('Failed to delete property1');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Failed to delete property2');
+    }
+  };
 
   return (
     <section className="bg-blue-50">
@@ -105,7 +132,7 @@ const page = () => {
                       </Link>
                       <button
                         onClick={() => {
-                          handleDeleteProperty();
+                          handleDeleteProperty(property._id);
                         }}
                         className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
                         type="button"
