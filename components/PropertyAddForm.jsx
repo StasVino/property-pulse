@@ -4,11 +4,10 @@ import { useState, useEffect } from 'react';
 const PropertyAddForm = () => {
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
-    owner: '1',
-    name: 'Boston Commons Retreat',
-    type: 'Apartment',
-    description:
-      'This is a beautiful apartment located near the commons. It is a 2 bedroom apartment with a full kitchen and bathroom. It is available for weekly or monthly rentals.',
+    owner: '',
+    name: '',
+    type: '',
+    description: '',
     location: {
       street: '120 Tremont Street',
       city: 'Boston',
@@ -59,7 +58,10 @@ const PropertyAddForm = () => {
 
       setFields((prevFields) => ({
         ...prevFields,
-        [outerKey]: { ...prevFields[outerKey], [innerKey]: value },
+        [outerKey]: {
+          ...prevFields[outerKey],
+          [innerKey]: value,
+        },
       }));
     } else {
       setFields((prevFields) => ({
@@ -99,7 +101,6 @@ const PropertyAddForm = () => {
     // Add new files to the array
     for (const file of files) {
       updatedImages.push(file);
-      console.log(file);
     }
 
     // Update state with array of images
