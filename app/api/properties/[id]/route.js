@@ -60,7 +60,6 @@ export const GET = async (request, { params }) => {
 export const PUT = async (request, { params }) => {
   try {
     await connectDB();
-
     const sessionUser = await getSessionUser();
 
     if (!sessionUser || !sessionUser.userId) {
@@ -69,7 +68,6 @@ export const PUT = async (request, { params }) => {
 
     const { id } = params;
     const { userId } = sessionUser;
-
     const formData = await request.formData();
 
     // Access all values from amenities

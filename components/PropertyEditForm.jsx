@@ -130,11 +130,11 @@ const PropertyEditForm = () => {
     e.preventDefault();
     try {
       const formData = new FormData(e.target);
-      const res = await fetch(`/api/property/${id}`, {
+      const res = await fetch(`/api/properties/${id}`, {
         method: 'PUT',
         body: formData,
       });
-
+      console.log(res);
       if (res.status === 200) {
         router.push(`/properties/${id}`);
       } else if (res.status === 401 || res.status === 403) {
