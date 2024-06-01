@@ -15,8 +15,9 @@ const SavedPropertiesPage = () => {
         const res = await fetch('/api/bookmarks');
 
         if (res.status === 200) {
-          const data = res.json();
+          const data = await res.json();
           setProperties(data);
+          console.log(data);
         } else {
           console.log(res.statusText);
           toast.error('Failed to fetch saved properties');
