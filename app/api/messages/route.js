@@ -4,6 +4,35 @@ import { getSessionUser } from '@/utils/getSessionUser';
 
 export const dynamic = 'force-dynamic';
 
+// GET /api/messages
+export const GET = async (request) => {
+  try {
+    await connectDB();
+
+    const sessionUser = await getSessionUser();
+
+    if (!sessionUser || sessionUser.Id) {
+      return new Response('You must be logged in to view messages', {
+        status: 401,
+      });
+    }
+
+    const { userId } = sessionUser;
+
+    // Find message in database
+    const messages = await Message.find({ recipient: userId })
+      .populate('sender', 'name')
+      .populate('property', 'title');
+
+    return new Response(JSON.stringify(messages), {
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response('Something went wrong', { status: 500 });
+  }
+};
+
 // POST /api/messages
 export const POST = async (request) => {
   try {
@@ -40,7 +69,6 @@ export const POST = async (request) => {
     });
 
     await newMessage.save();
-    console.log(newMessage);
     return new Response(
       JSON.stringify({ message: 'Message sent' }, { status: 200 })
     );
