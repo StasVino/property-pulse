@@ -1,13 +1,7 @@
-import { fetchProperties } from '@/utils/requests';
 import Properties from '@/components/Properties';
 import PropertySearchForm from '@/components/PropertySearchForm';
 
 const PropertiesPage = async () => {
-  const properties = await fetchProperties();
-
-  // Sort properties by date
-  properties.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
   return (
     <>
       <section className="bg-blue-700 py-4">
