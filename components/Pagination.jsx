@@ -27,7 +27,7 @@ const Pagination = ({ page, pageSize, totalItems, onPageChange }) => {
         className="ml-2 px-2 py-1 border border-gray-300 rounded"
         disabled={page === totalPages}
         onClick={() => {
-          handlePageChange(page - 1);
+          handlePageChange(page + 1);
         }}
       >
         Next

@@ -9,38 +9,20 @@ const PropertyAddForm = () => {
     type: '',
     description: '',
     location: {
-      street: '120 Tremont Street',
-      city: 'Boston',
-      state: 'MA',
-      zipcode: '02108',
+      street: '',
+      city: '',
+      state: '',
+      zipcode: '',
     },
-    beds: 2,
+    beds: 1,
     baths: 1,
-    square_feet: 1500,
-    amenities: [
-      'Wifi',
-      'Full kitchen',
-      'Washer & Dryer',
-      'Free Parking',
-      'Hot Tub',
-      '24/7 Security',
-      'Wheelchair Accessible',
-      'Elevator Access',
-      'Dishwasher',
-      'Gym/Fitness Center',
-      'Air Conditioning',
-      'Balcony/Patio',
-      'Smart TV',
-      'Coffee Maker',
-    ],
-    rates: {
-      weekly: 1100,
-      monthly: 4200,
-    },
+    square_feet: 0,
+    amenities: [],
+    rates: {},
     seller_info: {
-      name: 'John Doe',
-      email: 'john@gmail.com',
-      phone: '617-555-5555',
+      name: '',
+      email: '',
+      phone: '',
     },
     images: [],
     is_featured: false,
@@ -470,6 +452,19 @@ const PropertyAddForm = () => {
           </label>
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
             <div className="flex items-center">
+              <label htmlFor="nightly_rate" className="mr-2">
+                Nightly
+              </label>
+              <input
+                type="number"
+                id="nightly_rate"
+                name="rates.nightly"
+                className="border rounded w-full py-2 px-3"
+                value={fields.rates.nightly}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex items-center">
               <label htmlFor="weekly_rate" className="mr-2">
                 Weekly
               </label>
@@ -492,19 +487,6 @@ const PropertyAddForm = () => {
                 name="rates.monthly"
                 className="border rounded w-full py-2 px-3"
                 value={fields.rates.monthly}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex items-center">
-              <label htmlFor="nightly_rate" className="mr-2">
-                Nightly
-              </label>
-              <input
-                type="number"
-                id="nightly_rate"
-                name="rates.nightly"
-                className="border rounded w-full py-2 px-3"
-                value={fields.rates.nightly}
                 onChange={handleChange}
               />
             </div>

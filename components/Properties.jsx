@@ -35,6 +35,7 @@ const Properties = () => {
   }, [page, pageSize]);
 
   const handlePageChange = (newPage) => {
+    console.log(newPage);
     setPage(newPage);
   };
 
